@@ -18,3 +18,29 @@ library("tximeta")
 se <- tximeta(coldata)
 dim(se)
 head(rownames(se))
+
+gse <- summarizeToGene(se)
+
+
+rowRanges(gse)
+
+colData(gse)
+
+assayNames(gse)
+head(assay(gse), 3)
+
+gse$dex
+
+gse$dex <- factor(gse$dex, levels=c("untrt","trt"))
+
+levels(gse$dex)
+
+gse$dex %<>% relevel("untrt")
+gse$dex
+
+gse$dex <- relevel(gse$dex, "untrt")
+
+
+dds <- DESeqDataSet(gse, design = ~ dex)
+
+
